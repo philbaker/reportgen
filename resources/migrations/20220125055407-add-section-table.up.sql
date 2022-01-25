@@ -1,0 +1,5 @@
+CREATE TABLE section
+(id INTEGER PRIMARY KEY AUTOINCREMENT,
+description VARCHAR(200),
+text VARCHAR(5000),
+timestamp TIMESTAMP(7));

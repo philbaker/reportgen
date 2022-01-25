@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to guestbook</title>
+
+    <!-- styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link href="/css/screen.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <!-- navbar -->
+    <nav>
+    </nav>
+
+    <section>
+      <div class="content container">
+        <div class="columns">
+          <div class="column">
+            <h3>Messages</h3>
+
+            <ul class="messages">
+              {% for item in messages %}
+              <li>
+                <time>{{item.timestamp}}</time>
+                <p>{{item.message}}</p>
+                <p>- {{item.name}}</p>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="column">
+            {% if errors.unknown %}
+            <div class="notification is-danger">{{errors.unknown}}</div>
+            {% endif %}
+
+            <form method="POST" action="/save-message">
+              {% csrf-field %}
+              <p>
+                Name:
+                <input class="input" type="text" name="name" value="{{name}}" />
+              </p>
+              {% if errors.name %}
+              <div class="notification is-danger">{{errors.name}}</div>
+              {% endif %}
+              <p>
+                Message:
+                <textarea class="textarea" name="message">{{message}}</textarea>
+              </p>
+              {% if errors.message %}
+              <div class="notification is-danger">{{errors.message}}</div>
+              {% endif %}
+              <input type="submit" class="button is-primary" value="comment" />
+            </form>
+          </div>
+
+          <div class="column">
+            <h3>Add report section</h3>
+            {% if errors.unknown %}
+            <div class="notification is-danger">{{errors.unknown}}</div>
+            {% endif %}
+
+            <form method="POST" action="/save-section">
+              {% csrf-field %}
+              <p>
+                Name:
+                <input class="input" type="text" name="description" value="{{description}}" />
+              </p>
+              {% if errors.name %}
+              <div class="notification is-danger">{{errors.description}}</div>
+              {% endif %}
+              <p>
+                Message:
+                <textarea class="textarea" name="text">{{text}}</textarea>
+              </p>
+              {% if errors.message %}
+              <div class="notification is-danger">{{errors.text}}</div>
+              {% endif %}
+              <input type="submit" class="button is-primary" value="Add section" />
+            </form>
+          </div>
+
+          <div class="column">
+            <h3>Sections</h3>
+
+            <ul class="sections">
+              {% for item in sections %}
+              <li>
+                <time>{{item.timestamp}}</time>
+                <p>{{item.description}}</p>
+                <p>- {{item.text}}</p>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
