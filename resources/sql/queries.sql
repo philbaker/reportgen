@@ -18,6 +18,10 @@ VALUES (:section-1-text, :section-2-text, :section-3-text, :section-4-text)
 -- :doc selects all available reports
 SELECT * FROM report
 
+-- :name get-report :? :*
+-- :doc selects a single report
+SELECT * FROM report WHERE id = :id
+
 -- :name save-section! :! :n
 -- :doc creates a new message
 INSERT INTO section

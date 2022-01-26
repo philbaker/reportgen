@@ -1,5 +1,6 @@
 (ns kit.guestbook.web.routes.pages
   (:require
+   [clojure.tools.logging :as log]
    [kit.guestbook.web.middleware.exception :as exception]
    [kit.guestbook.web.pages.layout :as layout]
    [integrant.core :as ig]
@@ -22,9 +23,14 @@
                                         :sections (query-fn :get-sections {})
                                         :errors (:errors flash)})))
 
+(defn report [{:keys [path-params] :as request}]
+  (let [{:keys [query-fn]} (utils/route-data request)]
+    (layout/render request "report.html" {:report (first (query-fn :get-report {:id (:id path-params)}))})))
+
 ;; Routes
 (defn page-routes [_opts]
   [["/" {:get home}]
+   ["/report/:id" {:get report}]
    ["/save-message" {:post guestbook/save-message!}]
    ["/save-section" {:post section/save-section!}]])
 
