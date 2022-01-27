@@ -34,4 +34,4 @@ SELECT * FROM section
 
 -- :name get-section :? :*
 -- :doc selects a single section
-SELECT * FROM section
+SELECT * FROM section WHERE id = :id

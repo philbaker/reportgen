@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="space-y-6">
+    <h1 class="font-bold text-lg">Section {{section.id}}</h1>
+
+    <div class="space-y-1">
+      <h2 class="font-bold text-md">Description</h2>
+      <p class="text-sm text-gray-900">{{section.description}}</p>
+    </div>
+
+    <div class="space-y-1">
+      <h2 class="font-bold text-md">Text</h2>
+      <p class="text-sm text-gray-900">{{section.text}}</p>
+    </div>
+  </div>
+{% endblock %}

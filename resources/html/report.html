@@ -1,22 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="column">
-    <h1>Report</h1>
+  <div class="space-y-6">
+    <h1 class="font-bold text-lg">Report {{report.id}}</h1>
 
-    <h2>ID</h2>
-    <p>{{ report.id }}</p>
+    <div class="space-y-1">
+      <h2 class="font-bold text-md">{{report.section_1_title}}</h2>
+      <p class="text-sm text-gray-900">{{report.section_1_text}}</p>
+    </div>
 
-    <h2>Section 1</h2>
-    <p>{{ report.section_1_text }}</p>
+    <div class="space-y-2">
+      <h2 class="font-bold text-md">{{report.section_2_title}}</h2>
+      <p class="text-sm text-gray-900">{{report.section_2_text}}</p>
+    </div>
 
-    <h2>Section 2</h2>
-    <p>{{ report.section_2_text }}</p>
+    <div class="space-y-3">
+      <h2 class="font-bold text-md">{{report.section_3_title}}</h2>
+      <p class="text-sm text-gray-900">{{report.section_3_text}}</p>
+    </div>
 
-    <h2>Section 3</h2>
-    <p>{{ report.section_3_text }}</p>
-
-    <h2>Section 4</h2>
-    <p>{{ report.section_4_text }}</p>
+    <div class="space-y-4">
+      <h2 class="font-bold text-md">{{report.section_4_title}}</h2>
+      <p class="text-sm text-gray-900">{{report.section_4_text}}</p>
+    </div>
   </div>
+{% endblock %}
+
+{% extends "base.html" %}
+
+{% block content %}
 {% endblock %}
