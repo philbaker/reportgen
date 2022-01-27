@@ -44,6 +44,14 @@
       (layout/error-page  {:status 404
                            :title "Page not found"}))))
 
+(defn section-edit [{:keys [path-params] :as request}]
+  (let [{:keys [query-fn]} (utils/route-data request)
+        section (first (query-fn :get-section {:id (:id path-params)}))]
+    (if section
+      (layout/render request "section-edit.html" {:section section})
+      (layout/error-page  {:status 404
+                           :title "Page not found"}))))
+
 (defn sections [{:keys [flash] :as request}]
   (let [{:keys [query-fn]} (utils/route-data request)]
     (layout/render request "sections.html" {:sections (query-fn :get-sections {})
@@ -56,9 +64,11 @@
    ["/report" {:get reports}]
    ["/report/:id" {:get report}]
    ["/section/:id" {:get section}]
+   ["/section/:id/edit" {:get section-edit}]
    ["/save-message" {:post guestbook/save-message!}]
    ["/save-report" {:post report/save-report!}]
-   ["/save-section" {:post section/save-section!}]])
+   ["/save-section" {:post section/save-section!}]
+   ["/update-section" {:post section/update-section!}]])
 
 (defn route-data [opts]
   (merge

@@ -9,7 +9,14 @@
   (log/debug "saving report" section-1-title, section-1-text, section-2-title, section-2-text, section-3-title, section-3-text, section-4-title, section-4-text)
   (let [{:keys [query-fn]} (utils/route-data request)]
     (try
-      (if (or (empty? section-1-title) (empty? section-1-text) (empty? section-2-title) (empty? section-2-text) (empty? section-3-title) (empty? section-3-text) (empty? section-4-title) (empty? section-4-text))
+      (if (or (empty? section-1-title)
+              (empty? section-1-text)
+              (empty? section-2-title)
+              (empty? section-2-text)
+              (empty? section-3-title)
+              (empty? section-3-text)
+              (empty? section-4-title)
+              (empty? section-4-text))
         (cond-> (http-response/found "/report")
           (empty? section-1-title)
           (assoc-in [:flash :errors :section-1-title] "title is required")
