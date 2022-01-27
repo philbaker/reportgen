@@ -11,8 +11,8 @@ SELECT * FROM guestbook
 -- :name save-report! :! :n
 -- :doc creates a new report
 INSERT INTO report
-(section_1_text, section_2_text, section_3_text, section_4_text)
-VALUES (:section-1-text, :section-2-text, :section-3-text, :section-4-text)
+(section_1_title, section_1_text, section_2_title, section_2_text, section_3_title, section_3_text, section_4_title, section_4_text)
+VALUES (:section-1-title, :section-1-text, :section-2-title, :section-2-text, :section-3-title, :section-3-text, :section-4-title, :section-4-text)
 
 -- :name get-reports :? :*
 -- :doc selects all available reports
@@ -30,4 +30,8 @@ VALUES (:description, :text)
 
 -- :name get-sections :? :*
 -- :doc selects all available sections
+SELECT * FROM section
+
+-- :name get-section :? :*
+-- :doc selects a single section
 SELECT * FROM section

@@ -9,6 +9,7 @@
    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
    [kit.guestbook.web.routes.utils :as utils]
    [kit.guestbook.web.controllers.guestbook :as guestbook]
+   [kit.guestbook.web.controllers.report :as report]
    [kit.guestbook.web.controllers.section :as section]))
 
 (defn wrap-page-defaults []
@@ -20,18 +21,43 @@
 (defn home [{:keys [flash] :as request}]
   (let [{:keys [query-fn]} (utils/route-data request)]
     (layout/render request "home.html" {:messages (query-fn :get-messages {})
-                                        :sections (query-fn :get-sections {})
                                         :errors (:errors flash)})))
 
 (defn report [{:keys [path-params] :as request}]
+  (let [{:keys [query-fn]} (utils/route-data request)
+        report (first (query-fn :get-report {:id (:id path-params)}))]
+    (if report
+      (layout/render request "report.html" {:report report})
+      (layout/error-page  {:status 404
+                           :title "Page not found"}))))
+
+(defn reports [{:keys [flash] :as request}]
   (let [{:keys [query-fn]} (utils/route-data request)]
-    (layout/render request "report.html" {:report (first (query-fn :get-report {:id (:id path-params)}))})))
+    (layout/render request "reports.html" {:reports(query-fn :get-reports {})
+                                           :errors (:errors flash)})))
+
+(defn section [{:keys [path-params] :as request}]
+  (let [{:keys [query-fn]} (utils/route-data request)
+        section (first (query-fn :get-section {:id (:id path-params)}))]
+    (if section
+      (layout/render request "section.html" {:section section})
+      (layout/error-page  {:status 404
+                           :title "Page not found"}))))
+
+(defn sections [{:keys [flash] :as request}]
+  (let [{:keys [query-fn]} (utils/route-data request)]
+    (layout/render request "sections.html" {:sections (query-fn :get-sections {})
+                                            :errors (:errors flash)})))
 
 ;; Routes
 (defn page-routes [_opts]
   [["/" {:get home}]
+   ["/section" {:get sections}]
+   ["/report" {:get reports}]
    ["/report/:id" {:get report}]
+   ["/section/:id" {:get section}]
    ["/save-message" {:post guestbook/save-message!}]
+   ["/save-report" {:post report/save-report!}]
    ["/save-section" {:post section/save-section!}]])
 
 (defn route-data [opts]

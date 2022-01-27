@@ -17,8 +17,8 @@
           (assoc-in [:flash :errors :text] "text is required"))
         (do
           (query-fn :save-section! {:description description :text text})
-          (http-response/found "/")))
+          (http-response/found "/section")))
       (catch Exception e
         (log/error e "failed to save section!")
-        (-> (http-response/found "/")
+        (-> (http-response/found "/section")
             (assoc :flash {:errors {:unknown (.getMessage e)}}))))))
