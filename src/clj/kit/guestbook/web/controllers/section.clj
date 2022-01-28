@@ -41,3 +41,15 @@
         (log/error e "failed to update section!")
         (-> (http-response/found (str "/section/" id))
             (assoc :flash {:errors {:unknown (.getMessage e)}}))))))
+
+(defn delete-section!
+  [{{:strs [id]} :form-params :as request}]
+  (log/debug "deleting section" id)
+  (let [{:keys [query-fn]} (utils/route-data request)]
+    (try
+      (query-fn :delete-section! {:id id})
+      (http-response/found "/section")
+      (catch Exception e
+        (log/error e "failed to delete section!")
+        (-> (http-response/found "/section")
+            (assoc :flash {:errors {:unknown (.getMessage e)}}))))))

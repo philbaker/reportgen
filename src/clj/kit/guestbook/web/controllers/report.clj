@@ -79,3 +79,15 @@
         (log/error e "failed to save report!")
         (-> (http-response/found (str "/report/" id))
             (assoc :flash {:errors {:unknown (.getMessage e)}}))))))
+
+(defn delete-report!
+  [{{:strs [id]} :form-params :as request}]
+  (log/debug "deleting report" id)
+  (let [{:keys [query-fn]} (utils/route-data request)]
+    (try
+      (query-fn :delete-report! {:id id})
+      (http-response/found "/report")
+      (catch Exception e
+        (log/error e "failed to delete report!")
+        (-> (http-response/found (str "/report/" id))
+            (assoc :flash {:errors {:unknown (.getMessage e)}}))))))

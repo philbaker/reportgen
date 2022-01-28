@@ -76,9 +76,11 @@
    ["/section/:id/edit" {:get section-edit}]
    ["/save-message" {:post guestbook/save-message!}]
    ["/save-report" {:post report/save-report!}]
-   ["/save-section" {:post section/save-section!}]
    ["/update-report" {:post report/update-report!}]
-   ["/update-section" {:post section/update-section!}]])
+   ["/delete-report" {:post report/delete-report!}]
+   ["/save-section" {:post section/save-section!}]
+   ["/update-section" {:post section/update-section!}]
+   ["/delete-section" {:post section/delete-section!}]])
 
 (defn route-data [opts]
   (merge
