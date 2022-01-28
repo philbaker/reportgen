@@ -1,4 +1,4 @@
-(ns kit.guestbook.web.pages.layout
+(ns kit.reportgen.web.pages.layout
   (:require
    [clojure.java.io]
    [selmer.parser :as parser]

@@ -1,4 +1,4 @@
-(ns kit.guestbook.config
+(ns kit.reportgen.config
   (:require
     [kit.config :as config]))
 

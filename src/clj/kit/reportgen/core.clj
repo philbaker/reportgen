@@ -1,19 +1,19 @@
-(ns kit.guestbook.core
+(ns kit.reportgen.core
   (:require
     [clojure.tools.logging :as log]
     [integrant.core :as ig]
-    [kit.guestbook.config :as config]
-    [kit.guestbook.env :refer [defaults]]
+    [kit.reportgen.config :as config]
+    [kit.reportgen.env :refer [defaults]]
 
     ;; Edges        
     [kit.edge.utils.repl] 
     [kit.edge.server.undertow]
-    [kit.guestbook.web.handler]
+    [kit.reportgen.web.handler]
 
     ;; Routes
-    [kit.guestbook.web.routes.api]
+    [kit.reportgen.web.routes.api]
     
-    [kit.guestbook.web.routes.pages] 
+    [kit.reportgen.web.routes.pages] 
     [kit.edge.db.sql])
   (:gen-class))
 

@@ -1,6 +1,6 @@
-(ns kit.guestbook.web.middleware.core
+(ns kit.reportgen.web.middleware.core
   (:require
-    [kit.guestbook.env :as env]
+    [kit.reportgen.env :as env]
     [ring.middleware.defaults :as defaults]
     [ring.middleware.session.cookie :as cookie] ))
 

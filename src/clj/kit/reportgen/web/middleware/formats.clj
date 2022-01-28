@@ -1,4 +1,4 @@
-(ns kit.guestbook.web.middleware.formats
+(ns kit.reportgen.web.middleware.formats
   (:require
     [luminus-transit.time :as time]
     [muuntaja.core :as m]))

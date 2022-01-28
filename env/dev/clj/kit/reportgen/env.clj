@@ -1,7 +1,7 @@
-(ns kit.guestbook.env
+(ns kit.reportgen.env
   (:require
     [clojure.tools.logging :as log]
-    [kit.guestbook.dev-middleware :refer [wrap-dev]]))
+    [kit.reportgen.dev-middleware :refer [wrap-dev]]))
 
 (def defaults
   {:init       (fn []

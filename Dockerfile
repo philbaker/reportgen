@@ -11,10 +11,10 @@ RUN clj -Sforce -T:build all
 
 FROM adoptopenjdk/openjdk11:alpine-slim
 
-COPY --from=build /target/uberjar/guestbook.jar /guestbook/guestbook.jar
+COPY --from=build /target/uberjar/reportgen.jar /reportgen/reportgen.jar
 
 EXPOSE $PORT
 EXPOSE $REPL_PORT
 
-ENTRYPOINT exec java $JAVA_OPTS -jar /guestbook/guestbook.jar
+ENTRYPOINT exec java $JAVA_OPTS -jar /reportgen/reportgen.jar
 

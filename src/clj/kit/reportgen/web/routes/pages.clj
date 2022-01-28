@@ -1,27 +1,20 @@
-(ns kit.guestbook.web.routes.pages
+(ns kit.reportgen.web.routes.pages
   (:require
-   [clojure.tools.logging :as log]
-   [kit.guestbook.web.middleware.exception :as exception]
-   [kit.guestbook.web.pages.layout :as layout]
+   [kit.reportgen.web.middleware.exception :as exception]
+   [kit.reportgen.web.pages.layout :as layout]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
    [reitit.ring.middleware.parameters :as parameters]
    [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
-   [kit.guestbook.web.routes.utils :as utils]
-   [kit.guestbook.web.controllers.guestbook :as guestbook]
-   [kit.guestbook.web.controllers.report :as report]
-   [kit.guestbook.web.controllers.section :as section]))
+   [kit.reportgen.web.routes.utils :as utils]
+   [kit.reportgen.web.controllers.report :as report]
+   [kit.reportgen.web.controllers.section :as section]))
 
 (defn wrap-page-defaults []
   (let [error-page (layout/error-page
                      {:status 403
                       :title "Invalid anti-forgery token"})]
     #(wrap-anti-forgery % {:error-response error-page})))
-
-(defn home [{:keys [flash] :as request}]
-  (let [{:keys [query-fn]} (utils/route-data request)]
-    (layout/render request "home.html" {:messages (query-fn :get-messages {})
-                                        :errors (:errors flash)})))
 
 (defn report [{:keys [path-params] :as request}]
   (let [{:keys [query-fn]} (utils/route-data request)
@@ -42,6 +35,7 @@
 (defn reports [{:keys [flash] :as request}]
   (let [{:keys [query-fn]} (utils/route-data request)]
     (layout/render request "reports.html" {:reports(query-fn :get-reports {})
+                                           :sections (query-fn :get-sections {})
                                            :errors (:errors flash)})))
 
 (defn section [{:keys [path-params] :as request}]
@@ -67,14 +61,12 @@
 
 ;; Routes
 (defn page-routes [_opts]
-  [["/" {:get home}]
+  [["/" {:get reports}]
    ["/section" {:get sections}]
-   ["/report" {:get reports}]
    ["/report/:id" {:get report}]
    ["/report/:id/edit" {:get report-edit}]
    ["/section/:id" {:get section}]
    ["/section/:id/edit" {:get section-edit}]
-   ["/save-message" {:post guestbook/save-message!}]
    ["/save-report" {:post report/save-report!}]
    ["/update-report" {:post report/update-report!}]
    ["/delete-report" {:post report/delete-report!}]

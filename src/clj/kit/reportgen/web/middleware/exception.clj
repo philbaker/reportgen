@@ -1,4 +1,4 @@
-(ns kit.guestbook.web.middleware.exception
+(ns kit.reportgen.web.middleware.exception
   (:require
     [clojure.tools.logging :as log]
     [reitit.ring.middleware.exception :as exception]))

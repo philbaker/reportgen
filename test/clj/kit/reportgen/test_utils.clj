@@ -1,6 +1,6 @@
-(ns kit.guestbook.test-utils
+(ns kit.reportgen.test-utils
   (:require
-    [kit.guestbook.core :as core]))
+    [kit.reportgen.core :as core]))
 
 (defn system-state []
   (or @core/system state/system))

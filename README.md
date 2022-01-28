@@ -1,4 +1,4 @@
-# guestbook
+# reportgen
 
 Start a [REPL](#repls) in your editor or terminal of choice.
 

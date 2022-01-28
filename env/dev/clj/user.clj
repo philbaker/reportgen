@@ -10,7 +10,7 @@
     [integrant.repl :refer [clear go halt prep init reset reset-all]]
     [integrant.repl.state :as state]
     [kit.api :as kit]
-    [kit.guestbook.core :refer [start-app]]))
+    [kit.reportgen.core :refer [start-app]]))
 
 ;; uncomment to enable hot loading for deps
 #_(watch-deps/start! {:aliases [:dev :test]})
@@ -22,13 +22,13 @@
 (defn dev-prep!
   []
   (integrant.repl/set-prep! (fn []
-                              (-> (kit.guestbook.config/system-config {:profile :dev})
+                              (-> (kit.reportgen.config/system-config {:profile :dev})
                                   (ig/prep)))))
 
 (defn test-prep!
   []
   (integrant.repl/set-prep! (fn []
-                              (-> (kit.guestbook.config/system-config {:profile :test})
+                              (-> (kit.reportgen.config/system-config {:profile :test})
                                   (ig/prep)))))
 
 ;; Can change this to test-prep! if want to run tests as the test profile in your repl

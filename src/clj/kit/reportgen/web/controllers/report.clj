@@ -1,7 +1,7 @@
-(ns kit.guestbook.web.controllers.report
+(ns kit.reportgen.web.controllers.report
   (:require
    [clojure.tools.logging :as log]
-   [kit.guestbook.web.routes.utils :as utils]
+   [kit.reportgen.web.routes.utils :as utils]
    [ring.util.http-response :as http-response]))
 
 (defn save-report!
@@ -17,7 +17,7 @@
               (empty? section-3-text)
               (empty? section-4-title)
               (empty? section-4-text))
-        (cond-> (http-response/found "/report")
+        (cond-> (http-response/found "/")
           (empty? section-1-title)
           (assoc-in [:flash :errors :section-1-title] "title is required")
           (empty? section-1-text)
@@ -36,10 +36,10 @@
           (assoc-in [:flash :errors :section-4-text] "text is required"))
         (do
           (query-fn :save-report! {:section-1-title section-1-title :section-1-text section-1-text :section-2-title section-2-title :section-2-text section-2-text :section-3-title section-3-title :section-3-text section-3-text :section-4-title section-4-title :section-4-text section-4-text})
-          (http-response/found "/report")))
+          (http-response/found "/")))
       (catch Exception e
         (log/error e "failed to save report!")
-        (-> (http-response/found "/report")
+        (-> (http-response/found "/")
             (assoc :flash {:errors {:unknown (.getMessage e)}}))))))
 
 (defn update-report!
@@ -86,7 +86,7 @@
   (let [{:keys [query-fn]} (utils/route-data request)]
     (try
       (query-fn :delete-report! {:id id})
-      (http-response/found "/report")
+      (http-response/found "/")
       (catch Exception e
         (log/error e "failed to delete report!")
         (-> (http-response/found (str "/report/" id))

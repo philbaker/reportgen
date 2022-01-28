@@ -1,8 +1,8 @@
-(ns kit.guestbook.web.routes.api
+(ns kit.reportgen.web.routes.api
   (:require
-    [kit.guestbook.web.controllers.health :as health]
-    [kit.guestbook.web.middleware.exception :as exception]
-    [kit.guestbook.web.middleware.formats :as formats]
+    [kit.reportgen.web.controllers.health :as health]
+    [kit.reportgen.web.middleware.exception :as exception]
+    [kit.reportgen.web.middleware.formats :as formats]
     [integrant.core :as ig]
     [reitit.coercion.malli :as malli]
     [reitit.ring.coercion :as coercion]
@@ -14,7 +14,7 @@
 (defn api-routes [_opts]
   [["/swagger.json"
     {:get {:no-doc  true
-           :swagger {:info {:title "kit.guestbook API"}}
+           :swagger {:info {:title "kit.reportgen API"}}
            :handler (swagger/create-swagger-handler)}}]
    ["/health"
     {:get health/healthcheck!}]])

@@ -1,7 +1,7 @@
-(ns kit.guestbook.web.controllers.section 
+(ns kit.reportgen.web.controllers.section 
   (:require
    [clojure.tools.logging :as log]
-   [kit.guestbook.web.routes.utils :as utils]
+   [kit.reportgen.web.routes.utils :as utils]
    [ring.util.http-response :as http-response]))
 
 (defn save-section!

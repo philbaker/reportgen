@@ -1,4 +1,4 @@
-(ns kit.guestbook.env
+(ns kit.reportgen.env
   (:require [clojure.tools.logging :as log]))
 
 (def defaults

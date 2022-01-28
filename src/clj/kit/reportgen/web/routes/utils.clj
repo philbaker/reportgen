@@ -1,4 +1,4 @@
-(ns kit.guestbook.web.routes.utils)
+(ns kit.reportgen.web.routes.utils)
 
 (def route-data-path [:reitit.core/match :data])
 

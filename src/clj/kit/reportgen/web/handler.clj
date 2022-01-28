@@ -1,6 +1,6 @@
-(ns kit.guestbook.web.handler
+(ns kit.reportgen.web.handler
   (:require
-    [kit.guestbook.web.middleware.core :as middleware]
+    [kit.reportgen.web.middleware.core :as middleware]
     [integrant.core :as ig]
     [reitit.ring :as ring]
     [reitit.swagger-ui :as swagger-ui]))

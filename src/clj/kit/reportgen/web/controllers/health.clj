@@ -1,4 +1,4 @@
-(ns kit.guestbook.web.controllers.health
+(ns kit.reportgen.web.controllers.health
   (:require
     [ring.util.http-response :as http-response])
   (:import
