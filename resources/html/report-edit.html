@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="grid grid-cols-12">
+  <div class="col-span-12 sm:col-span-6 mt-4">
+    <form method="POST" action="/update-report">
+      {% csrf-field %}
+      <div class="space-y-6 sm:space-y-5">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Add report</h3>
+        <div class="space-y-6 sm:space-y-5">
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <label for="section-1-title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+              Section 1
+            </label>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <input type="text" name="section-1-title" value="{{report.section_1_title}}" id="section-1-title" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+
+              {% if errors.section-1-title %}
+              <div class="text-xs text-red-600 mt-1">{{errors.section-1-title}}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <label for="section-1-text" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+              Section 1 text
+            </label>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <textarea rows="4" name="section-1-text" id="section-1-text" class="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">{{report.section_1_text}}</textarea>
+
+              {% if errors.section-1-text %}
+              <div class="text-xs text-red-600 mt-1">{{errors.section-1-text}}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <label for="section-2-title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+              Section 2
+            </label>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <input type="text" name="section-2-title" value="{{report.section_2_title}}" id="section-2-title" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+
+              {% if errors.section-2-title %}
+              <div class="text-xs text-red-600 mt-1">{{errors.section-2-title}}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <label for="section-2-text" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+              Section 2 text
+            </label>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <textarea rows="4" name="section-2-text" id="section-2-text" class="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">{{report.section_2_text}}</textarea>
+
+              {% if errors.section-2-text %}
+              <div class="text-xs text-red-600 mt-1">{{errors.section-2-text}}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <label for="section-3-title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+              Section 3
+            </label>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <input type="text" name="section-3-title" value="{{report.section_3_title}}" id="section-3-title" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+
+              {% if errors.section-3-title %}
+              <div class="text-xs text-red-600 mt-1">{{errors.section-3-title}}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <label for="section-3-text" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+              Section 3 text
+            </label>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <textarea rows="4" name="section-3-text" id="section-3-text" class="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">{{report.section_3_text}}</textarea>
+
+              {% if errors.section-3-text %}
+              <div class="text-xs text-red-600 mt-1">{{errors.section-3-text}}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <label for="section-4-title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+              Section 4
+            </label>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <input type="text" name="section-4-title" value="{{report.section_4_title}}" id="section-4-title" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
+
+              {% if errors.section-4-title %}
+              <div class="text-xs text-red-600 mt-1">{{errors.section-4-title}}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+            <label for="section-4-text" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+              Section 4 text
+            </label>
+            <div class="mt-1 sm:mt-0 sm:col-span-2">
+              <textarea rows="4" name="section-4-text" id="section-4-text" class="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">{{report.section_4_text}}</textarea>
+
+              {% if errors.section-4-text %}
+              <div class="text-xs text-red-600 mt-1">{{errors.section-4-text}}</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <input type="hidden" id="id" name="id" value="{{report.id}}">
+      </div>
+
+      <div class="w-full flex justify-end mt-2">
+        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add report</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -31,6 +31,14 @@
       (layout/error-page  {:status 404
                            :title "Page not found"}))))
 
+(defn report-edit [{:keys [path-params] :as request}]
+  (let [{:keys [query-fn]} (utils/route-data request)
+        report (first (query-fn :get-report {:id (:id path-params)}))]
+    (if report
+      (layout/render request "report-edit.html" {:report report})
+      (layout/error-page  {:status 404
+                           :title "Page not found"}))))
+
 (defn reports [{:keys [flash] :as request}]
   (let [{:keys [query-fn]} (utils/route-data request)]
     (layout/render request "reports.html" {:reports(query-fn :get-reports {})
@@ -63,11 +71,13 @@
    ["/section" {:get sections}]
    ["/report" {:get reports}]
    ["/report/:id" {:get report}]
+   ["/report/:id/edit" {:get report-edit}]
    ["/section/:id" {:get section}]
    ["/section/:id/edit" {:get section-edit}]
    ["/save-message" {:post guestbook/save-message!}]
    ["/save-report" {:post report/save-report!}]
    ["/save-section" {:post section/save-section!}]
+   ["/update-report" {:post report/update-report!}]
    ["/update-section" {:post section/update-section!}]])
 
 (defn route-data [opts]
