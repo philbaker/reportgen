@@ -1,0 +1,41 @@
+<div class="space-y-6 sm:space-y-5">
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <label for="section-{{forloop.counter}}-options" class="block text-sm font-medium text-gray-700">Section {{forloop.counter}} options</label>
+
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <select x-model="section{{forloop.counter}}.text" @change="section{{forloop.counter}}.title = $refs.sectionSelect{{forloop.counter}}.options[$refs.sectionSelect{{forloop.counter}}.selectedIndex].text" x-ref="sectionSelect{{forloop.counter}}" id="section-{{forloop.counter}}-options" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+        <option value=""></option>
+        {% for item in sections %}
+        <option value="{{item.text}}">{{item.description}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <label for="section-{{forloop.counter}}-title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+      Section {{forloop.counter}} 
+    </label>
+
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <input x-model="section{{forloop.counter}}.title" required type="text" name="section-{{forloop.counter}}-title" id="section-{{forloop.counter}}-title" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm rounded-md border-gray-300" x-bind:class="submitClicked && section{{forloop.counter}}.title.length === 0 ? 'border border-red-600' : ''">
+
+      <div x-cloak x-show="submitClicked && section{{forloop.counter}}.title.length === 0">
+        <p class="text-red-600 text-sm mt-1">Section {{forloop.counter}} title is required</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <label for="section-{{forloop.counter}}-text" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+      Section {{forloop.counter}} text
+    </label>
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <textarea x-model="section{{forloop.counter}}.text" required rows="4" name="section-{{forloop.counter}}-text" id="section-{{forloop.counter}}-text" class="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md border-gray-300" x-bind:class="submitClicked && section{{forloop.counter}}.text.length === 0 ? 'border border-red-600' : ''"></textarea>
+
+      <div x-cloak x-show="submitClicked && section{{forloop.counter}}.text.length === 0">
+        <p class="text-red-600 text-sm mt-1">Section {{forloop.counter}} text is required</p>
+      </div>
+    </div>
+  </div>
+</div>

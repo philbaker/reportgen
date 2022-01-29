@@ -11,3 +11,4 @@ log/
 # IntelliJ
 *.iml
 .idea/
+modules/kit-modules

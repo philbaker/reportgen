@@ -1,7 +1,8 @@
-(ns kit.reportgen.web.controllers.section 
+(ns kit.reportgen.web.controllers.section
   (:require
    [clojure.tools.logging :as log]
    [kit.reportgen.web.routes.utils :as utils]
+   [clojure.string :refer [trim]]
    [ring.util.http-response :as http-response]))
 
 (defn save-section!
@@ -11,9 +12,9 @@
     (try
       (if (or (empty? description) (empty? text))
         (cond-> (http-response/found "/section")
-          (empty? description)
+          (empty? (trim description))
           (assoc-in [:flash :errors :description] "description is required")
-          (empty? text)
+          (empty? (trim text))
           (assoc-in [:flash :errors :text] "text is required"))
         (do
           (query-fn :save-section! {:description description :text text})
@@ -28,7 +29,7 @@
   (log/debug "updating section" id description text)
   (let [{:keys [query-fn]} (utils/route-data request)]
     (try
-      (if (or (empty? description) (empty? text))
+      (if (or (empty? (trim description)) (empty? (trim text)))
         (cond-> (http-response/found (str "/section/" id))
           (empty? description)
           (assoc-in [:flash :errors :description] "description is required")

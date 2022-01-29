@@ -1,6 +1,7 @@
 (ns kit.reportgen.web.routes.pages
   (:require
    [kit.reportgen.web.middleware.exception :as exception]
+   [clojure.tools.logging :as log]
    [kit.reportgen.web.pages.layout :as layout]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -26,17 +27,24 @@
 
 (defn report-edit [{:keys [path-params] :as request}]
   (let [{:keys [query-fn]} (utils/route-data request)
-        report (first (query-fn :get-report {:id (:id path-params)}))]
+        report (first (query-fn :get-report {:id (:id path-params)}))
+        report-keys (take-nth 2 (keys (dissoc report :id :timestamp)))]
     (if report
-      (layout/render request "report-edit.html" {:report report})
+      (layout/render request "report-edit.html" {:report report
+                                                 :report-keys report-keys
+                                                 :sections (query-fn :get-sections {})})
       (layout/error-page  {:status 404
                            :title "Page not found"}))))
 
 (defn reports [{:keys [flash] :as request}]
-  (let [{:keys [query-fn]} (utils/route-data request)]
-    (layout/render request "reports.html" {:reports(query-fn :get-reports {})
+  (let [{:keys [query-fn]} (utils/route-data request)
+        reports (query-fn :get-reports {})
+        report-keys (take-nth 2 (keys (dissoc (first reports) :id :timestamp)))]
+    (layout/render request "reports.html" {:reports reports
+                                           :report-keys report-keys
                                            :sections (query-fn :get-sections {})
-                                           :errors (:errors flash)})))
+                                           :errors (:errors flash)})
+    ))
 
 (defn section [{:keys [path-params] :as request}]
   (let [{:keys [query-fn]} (utils/route-data request)

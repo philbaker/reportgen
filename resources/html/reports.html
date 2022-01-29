@@ -1,173 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="grid grid-cols-12">
+
+<div
+  class="grid grid-cols-12"
+  x-data="{ 
+    submitClicked: false,
+    section1: { 
+        title: '{{ report.section_1_title }}',
+        text: '{{ report.section_1_text }}',
+      },
+    section2: { 
+        title: '{{ report.section_2_title }}',
+        text: '{{ report.section_2_text }}',
+      },
+    section3: { 
+        title: '{{ report.section_3_title }}',
+        text: '{{ report.section_3_text }}',
+      },
+    section4: { 
+        title: '{{ report.section_4_title }}',
+        text: '{{ report.section_4_text }}',
+      },
+  }"
+>
   <div class="col-span-12 sm:col-span-6 mt-4">
     <form method="POST" action="/save-report">
       {% csrf-field %}
       <div class="space-y-6 sm:space-y-5">
         <h3 class="text-lg leading-6 font-medium text-gray-900">Add report</h3>
 
-        <div class="space-y-6 sm:space-y-5" x-data="{ section: '', index: '' }">
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-1-options" class="block text-sm font-medium text-gray-700">Section 1 options</label>
-            <select x-model="section" @change="index = $refs.sectionSelect.options[$refs.sectionSelect.selectedIndex].text" x-ref="sectionSelect" id="section-1-options" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-              <option value=""></option>
-              {% for item in sections %}
-              <option value="{{item.text}}">{{item.description}}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-1-title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-              Section 1
-            </label>
-
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <input x-model="index" type="text" name="section-1-title" value="{{section-1-title}}" id="section-1-title" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-
-              {% if errors.section-1-title %}
-              <div class="text-xs text-red-600 mt-1">{{errors.section-1-title}}</div>
-              {% endif %}
-            </div>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-1-text" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-              Section 1 text
-            </label>
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <textarea x-text="section" rows="4" name="section-1-text" id="section-1-text" class="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">{{section-1-text}}</textarea>
-
-              {% if errors.section-1-text %}
-              <div class="text-xs text-red-600 mt-1">{{errors.section-1-text}}</div>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-6 sm:space-y-5" x-data="{ section: '', index: '' }">
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-2-options" class="block text-sm font-medium text-gray-700">Section 2 options</label>
-            <select x-model="section" @change="index = $refs.sectionSelect.options[$refs.sectionSelect.selectedIndex].text" x-ref="sectionSelect" id="section-2-options" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-              <option value=""></option>
-              {% for item in sections %}
-              <option value="{{item.text}}">{{item.description}}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-2-title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-              Section 2
-            </label>
-
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <input x-model="index" type="text" name="section-2-title" value="{{section-2-title}}" id="section-2-title" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-
-              {% if errors.section-2-title %}
-              <div class="text-xs text-red-600 mt-1">{{errors.section-2-title}}</div>
-              {% endif %}
-            </div>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-2-text" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-              Section 2 text
-            </label>
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <textarea x-text="section" rows="4" name="section-2-text" id="section-2-text" class="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">{{section-2-text}}</textarea>
-
-              {% if errors.section-2-text %}
-              <div class="text-xs text-red-600 mt-1">{{errors.section-2-text}}</div>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-6 sm:space-y-5" x-data="{ section: '', index: '' }">
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-3-options" class="block text-sm font-medium text-gray-700">Section 3 options</label>
-            <select x-model="section" @change="index = $refs.sectionSelect.options[$refs.sectionSelect.selectedIndex].text" x-ref="sectionSelect" id="section-3-options" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-              <option value=""></option>
-              {% for item in sections %}
-              <option value="{{item.text}}">{{item.description}}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-3-title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-              Section 3
-            </label>
-
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <input x-model="index" type="text" name="section-3-title" value="{{section-3-title}}" id="section-3-title" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-
-              {% if errors.section-3-title %}
-              <div class="text-xs text-red-600 mt-1">{{errors.section-3-title}}</div>
-              {% endif %}
-            </div>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-3-text" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-              Section 3 text
-            </label>
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <textarea x-text="section" rows="4" name="section-3-text" id="section-3-text" class="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">{{section-3-text}}</textarea>
-
-              {% if errors.section-3-text %}
-              <div class="text-xs text-red-600 mt-1">{{errors.section-3-text}}</div>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-
-        <div class="space-y-6 sm:space-y-5" x-data="{ section: '', index: '' }">
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-4-options" class="block text-sm font-medium text-gray-700">Section 4 options</label>
-            <select x-model="section" @change="index = $refs.sectionSelect.options[$refs.sectionSelect.selectedIndex].text" x-ref="sectionSelect" id="section-4-options" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
-              <option value=""></option>
-              {% for item in sections %}
-              <option value="{{item.text}}">{{item.description}}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-4-title" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-              Section 4
-            </label>
-
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <input x-model="index" type="text" name="section-4-title" value="{{section-4-title}}" id="section-4-title" class="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md">
-
-              {% if errors.section-4-title %}
-              <div class="text-xs text-red-600 mt-1">{{errors.section-4-title}}</div>
-              {% endif %}
-            </div>
-          </div>
-
-          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-            <label for="section-4-text" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-              Section 4 text
-            </label>
-            <div class="mt-1 sm:mt-0 sm:col-span-2">
-              <textarea x-text="section" rows="4" name="section-4-text" id="section-4-text" class="p-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">{{section-4-text}}</textarea>
-
-              {% if errors.section-4-text %}
-              <div class="text-xs text-red-600 mt-1">{{errors.section-4-text}}</div>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-
+        {% for key in report-keys %}
+          {% include "report-fields.html" %}
+        {% endfor %}
       </div>
 
       <div class="w-full flex justify-end mt-2">
-        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add report</button>
+        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="submitClicked = true">Add report</button>
       </div>
     </form>
   </div>
@@ -238,5 +107,4 @@
     </ul>
   </div>
 </div>
-
 {% endblock %}
