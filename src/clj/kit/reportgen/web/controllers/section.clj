@@ -10,11 +10,11 @@
   (log/debug "saving section" description text)
   (let [{:keys [query-fn]} (utils/route-data request)]
     (try
-      (if (or (empty? description) (empty? text))
+      (if (or (empty? (trim description)) (empty? (trim text)))
         (cond-> (http-response/found "/section")
-          (empty? (trim description))
+          (empty? description)
           (assoc-in [:flash :errors :description] "description is required")
-          (empty? (trim text))
+          (empty? text)
           (assoc-in [:flash :errors :text] "text is required"))
         (do
           (query-fn :save-section! {:description description :text text})
